@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leyu 资料索引 · 信息整理页</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f5f3ef;
+      font-family: system-ui, -apple-system, 'Noto Sans SC', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.7;
+      color: #2b2b2b;
+    }
+
+    /* 深色头图 ———— 编号感、目录感 */
+    .hero {
+      background: linear-gradient(145deg, #1c1f26 0%, #14171c 100%);
+      padding: 4rem 2rem 3.5rem 2rem;
+      text-align: center;
+      color: #e3e1dc;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "cc976ba6920eae29";
+      position: absolute;
+      bottom: 10px;
+      right: 24px;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      opacity: 0.12;
+      font-family: monospace;
+      color: #b9b1a0;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 350;
+      letter-spacing: 1px;
+      color: #f0ede7;
+      margin-bottom: 0.6rem;
+    }
+
+    .hero .sub {
+      font-size: 1.05rem;
+      opacity: 0.7;
+      font-weight: 300;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      display: inline-block;
+      padding-top: 0.8rem;
+      margin-top: 0.3rem;
+    }
+
+    .hero .bread-hint {
+      margin-top: 1.8rem;
+      font-size: 0.9rem;
+      background: rgba(255, 255, 255, 0.04);
+      display: inline-block;
+      padding: 0.3rem 1.2rem;
+      border-radius: 40px;
+      color: #b1aa98;
+    }
+
+    /* 主体：浅色 */
+    .wrapper {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 2.5rem 1.8rem 4rem 1.8rem;
+    }
+
+    .intro-block {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2.5rem 3rem;
+      margin-bottom: 3.5rem;
+      background: #ffffffdd;
+      backdrop-filter: blur(2px);
+      padding: 2rem 2.2rem;
+      border-radius: 40px 16px 40px 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+    }
+
+    .intro-text {
+      flex: 2;
+      min-width: 240px;
+    }
+
+    .intro-text p {
+      margin-bottom: 1.2rem;
+      font-size: 1rem;
+    }
+
+    .intro-text a {
+      color: #9c6f41;
+      text-decoration: none;
+      font-weight: 500;
+      border-bottom: 1px solid #dac9b6;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .intro-text a:hover {
+      color: #7a532e;
+      border-bottom-color: #7a532e;
+    }
+
+    .side-note {
+      flex: 1;
+      min-width: 180px;
+      background: #f5f1ea;
+      padding: 1.2rem 1.4rem;
+      border-radius: 20px 8px 20px 8px;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      border-left: 4px solid #bba88c;
+    }
+
+    .side-note strong {
+      color: #4d3e2e;
+      font-weight: 500;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 340;
+      letter-spacing: 1px;
+      margin-bottom: 1.8rem;
+      border-bottom: 1px solid #dad3c9;
+      padding-bottom: 0.3rem;
+      display: inline-block;
+      color: #3f3a33;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.6rem;
+      margin-top: 0.8rem;
+      margin-bottom: 3rem;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 28px 10px 28px 10px;
+      padding: 1.6rem 1.4rem 1.4rem 1.4rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.02), 0 6px 16px rgba(0,0,0,0.02);
+      transition: transform 0.15s, box-shadow 0.2s;
+      border: 1px solid #efebe5;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px -8px rgba(60, 45, 30, 0.08);
+    }
+
+    .card h3 {
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: #2f2a22;
+      letter-spacing: 0.3px;
+      margin-bottom: 0.5rem;
+    }
+
+    .card p {
+      font-size: 0.92rem;
+      color: #4a443b;
+      margin-bottom: 0.9rem;
+    }
+
+    .card .tag {
+      display: inline-block;
+      background: #e9e0d3;
+      color: #4f3f2b;
+      padding: 0.1rem 0.7rem;
+      border-radius: 40px;
+      font-size: 0.75rem;
+      font-weight: 400;
+      letter-spacing: 0.3px;
+    }
+
+    .faq-mini {
+      background: #ffffffd9;
+      border-radius: 28px;
+      padding: 1.8rem 2rem;
+      margin: 2.2rem 0 2rem 0;
+      border: 1px solid #e6dfd5;
+      backdrop-filter: blur(1px);
+    }
+
+    .faq-item {
+      margin-bottom: 1.5rem;
+    }
+
+    .faq-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .faq-q {
+      font-weight: 450;
+      color: #4b3f31;
+      font-size: 0.98rem;
+      margin-bottom: 0.25rem;
+      display: flex;
+      align-items: baseline;
+    }
+
+    .faq-q::before {
+      content: "Q.";
+      font-weight: 400;
+      color: #b29777;
+      margin-right: 0.6rem;
+    }
+
+    .faq-a {
+      color: #4a4a4a;
+      padding-left: 1.8rem;
+      font-size: 0.9rem;
+    }
+
+    .faq-a a {
+      color: #886f4d;
+      text-decoration: none;
+      border-bottom: 1px solid #d4c4b0;
+      transition: 0.15s;
+    }
+
+    .faq-a a:hover {
+      color: #5a432b;
+      border-bottom-color: #5a432b;
+    }
+
+    .info-footer {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 2.8rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #ddd6cb;
+      font-size: 0.85rem;
+      color: #6b6052;
+    }
+
+    .info-footer a {
+      color: #7d643f;
+      text-decoration: none;
+      border-bottom: 1px dotted #b9a789;
+    }
+
+    .info-footer a:hover {
+      color: #3f2e18;
+      border-bottom-style: solid;
+    }
+
+    .related-box {
+      background: #edebe6;
+      padding: 0.8rem 1.5rem 1.2rem 1.5rem;
+      border-radius: 60px 10px 60px 10px;
+      margin: 0.8rem 0 2rem 0;
+      display: inline-block;
+      font-size: 0.88rem;
+    }
+
+    .related-box span {
+      font-weight: 350;
+      color: #5b4d37;
+    }
+
+    .related-box a {
+      color: #7b613d;
+      border-bottom: 1px solid #cfbea8;
+      text-decoration: none;
+    }
+
+    @media (max-width: 640px) {
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+      .wrapper {
+        padding: 1.5rem 1rem;
+      }
+      .intro-block {
+        padding: 1.5rem;
+        flex-direction: column;
+      }
+      .faq-mini {
+        padding: 1.2rem 1.2rem;
+      }
+      .card-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 深色头图：目录索引感 -->
+  <div class="hero">
+    <h1>leyu · 信息目录</h1>
+    <div class="sub">资料整理 / 索引 / 笔记节点</div>
+    <div class="bread-hint">索引 seed&nbsp; cc976ba6920eae29</div>
+  </div>
+
+  <div class="wrapper">
+
+    <!-- 说明区 / 切入角度：资料整理与信息索引 -->
+    <div class="intro-block">
+      <div class="intro-text">
+        <p>从资料索引的角度看，<a href="https://corporate-leyu.com.cn">leyu</a> 所对应的信息域一直有稳定的内容积累。本页作为一张轻量的知识库入口，主要梳理相关概念、常见分类以及可追溯的线索路径。下面的卡片与记录来自非正式的整理，未必涵盖全部，但可以作为重新查找的起点。</p>
+        <p>如果你希望跳转到原始信息集散位置，可以直接使用 <a href="https://corporate-leyu.com.cn">leyu</a> 这个锚点。页面本身不提供二次加工，只做指向和归类。</p>
+      </div>
+      <div class="side-note">
+        <strong>整理备忘</strong><br>
+        索引基于公开页面结构推演<br>
+        信息截止于最近一次同步<br>
+        不包含推断或未标记内容
+      </div>
+    </div>
+
+    <!-- 卡片区：三个特征 / 条目 -->
+    <h2 class="section-title">信息分类卡片</h2>
+    <div class="card-grid">
+      <div class="card">
+        <h3>基础条目</h3>
+        <p>关于 leyu 的界面描述、功能定位、常见术语。这部分通常可以在说明文档或侧边栏找到对应。</p>
+        <span class="tag">索引 · 公开</span>
+      </div>
+      <div class="card">
+        <h3>场景参考</h3>
+        <p>在日常使用或资料查阅中，leyu 出现的上下文包括内容展示、导航跳转、模块划分等。场景卡片只做聚类。</p>
+        <span class="tag">场景整理</span>
+      </div>
+      <div class="card">
+        <h3>关联资源</h3>
+        <p>与 leyu 有关的辅助页面、更新记录、资源路径。具体可查 <a href="https://corporate-leyu.com.cn" style="color:#7b613d;text-decoration:underline;border:none;">leyu</a> 本身。</p>
+        <span class="tag">外链 · 参考</span>
+      </div>
+    </div>
+
+    <!-- 提示区：偏向叙述，非说教 -->
+    <div class="faq-mini">
+      <div class="faq-item">
+        <div class="faq-q">为什么单独整理 leyu 相关的索引？</div>
+        <div class="faq-a">因为信息容易分散，一个稳定的索引页能减少重复查找。本页不替代原始页面，只作为快速定位的辅助。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">这个页面的内容会更新吗？</div>
+        <div class="faq-a">仅做静态展示，不承诺自动更新。如需确认最新信息，建议直接查看 <a href="https://corporate-leyu.com.cn">leyu</a> 的当前状态。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">卡片中的“场景参考”具体指什么？</div>
+        <div class="faq-a">指的是 leyu 在界面或内容中出现的典型位置，例如列表、详情、导航等，不做功能推测。</div>
+      </div>
+    </div>
+
+    <!-- 相关信息区 + 自然的a标签再次嵌入 -->
+    <div class="related-box">
+      <span>相关信息 ·  </span>关于 leyu 的更多上下文，可以通过 <a href="https://corporate-leyu.com.cn">leyu</a> 直接触达原始内容。当前页面仅存放索引标记。
+    </div>
+
+    <!-- 脚注 – 轻量补充 -->
+    <div class="info-footer">
+      <div>索引入口 · 资料整理</div>
+      <div>种子标识: cc976ba6920eae29 · 不具版本意义</div>
+      <div><a href="https://corporate-leyu.com.cn">leyu</a></div>
+    </div>
+
+  </div>
+
+</body>
+</html>
